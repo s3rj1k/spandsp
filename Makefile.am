@@ -64,7 +64,11 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = spandsp.pc
 
 faq: faq.xml
+if HAVE_XML_CATALOG_FILES
+	cd faq ; env XML_CATALOG_FILES=$(XML_CATALOG_FILES) xsltproc ../wrapper.xsl ../faq.xml
+else
 	cd faq ; xsltproc ../wrapper.xsl ../faq.xml
+endif
 
 rpm: rpm-build
 
